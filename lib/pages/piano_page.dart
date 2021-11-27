@@ -111,10 +111,10 @@ class PianoPage extends StatelessWidget {
                 List.generate(keys.length, (index) {
                   if (keys[index].substring(1) == "#") {
                     print("${keys[index].substring(1)}");
-                    return BlackKey((keys[index]));
+                    return BlackKey((keys[index]), index);
                   }
                   else {
-                    return WhiteKey(keys[index]);
+                    return WhiteKey(keys[index], index);
                   }
                 })))
     );
