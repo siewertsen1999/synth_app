@@ -33,14 +33,13 @@ class _WhiteKeyState extends State<WhiteKey> {
             child:
             ElevatedButton(
                 onPressed:  () {
-                  Provider.of<KeysState>(context).addKey(widget.id);
-                  Provider.of<KeysState>(context).playMidiNotes();
-                  setState(() {
-                    widget._pressed = !widget._pressed;
-                  });
-                },
+                  print("pressed");
+                  Provider.of<KeysState>(context, listen: false).addKey(widget.id);
+                  Provider.of<KeysState>(context, listen: false).playMidiNotes();
+                  Provider.of<KeysState>(context, listen: false).removeKey(widget.id);
+                  },
                 style: ButtonStyle(
-                  backgroundColor: widget._pressed? MaterialStateProperty.all(Colors.red) : MaterialStateProperty.all(Colors.white70),
+                  backgroundColor: widget._pressed? MaterialStateProperty.all(Colors.red) : MaterialStateProperty.all(Colors.white54),
                 ),
                 child:
                 Text(

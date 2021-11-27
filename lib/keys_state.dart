@@ -8,7 +8,10 @@ class KeysState extends ChangeNotifier {
   FlutterMidi flutterMidi = FlutterMidi();
   final int gridSize;
   final int playSpeed;
-  final Map<int, bool>_pressedKeys = Map();
+  final Map<int, bool>_pressedKeys = {
+  1 : false, 2 : false, 3 : false, 4 : false, 5 : false, 6 : false, 7 : false, 8 : false, 9 : false, 10 : false, 11 : false, 12 : false, 13 : false, 14 : false, 15 : false,
+    16 : false, 17 : false, 18 : false, 19 : false, 20 : false, 21 : false, 22 : false, 23 : false, 24: false, 25 : false, 26 : false, 27 : false, 28 : false, 29 : false, 30 : false
+  };
   List<dynamic> _midiNotes = [];
   //The subscription provides events to the listener, and holds the callbacks used to handle the events.
   // The subscription can also be used to unsubscribe from the events, or to temporarily pause the events from the stream.
@@ -22,7 +25,7 @@ class KeysState extends ChangeNotifier {
 
   KeysState({this.gridSize = 6, this.playSpeed = 125}){
     _midiNotes = List.generate(gridSize, (id) {
-      return 12 + id;
+      return id;
     });
 
     rootBundle.load("lib/assets/20 Synth Soundfonts/Sine Wave.sf2").then((sf2) {
@@ -70,10 +73,10 @@ class KeysState extends ChangeNotifier {
   void playMidiNotes() {
     _pressedKeys..forEach((pos, isPressed) {
       if (isPressed) {
-        flutterMidi.playMidiNote(midi: pos);
+        flutterMidi.playMidiNote(midi: 60+pos);
 
-        Future.delayed(Duration(milliseconds: 100),
-                () => flutterMidi.stopMidiNote(midi: _midiNotes[pos]));
+        Future.delayed(Duration(milliseconds: 200),
+                () => flutterMidi.stopMidiNote(midi: 60+pos));
       }
     });
 
