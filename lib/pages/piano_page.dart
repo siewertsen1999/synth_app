@@ -10,7 +10,7 @@ import 'package:music_app/widgets/white_key.dart';
 
 StreamController<bool> streamController = StreamController<bool>.broadcast();
 
-class PianoPage extends StatefulWidget {
+class PianoPage extends StatelessWidget {
 
   late final Stream<bool> stream;
   late final StreamController updateStream;
@@ -39,18 +39,20 @@ class PianoPage extends StatefulWidget {
     "x","C#","D#","x","f#","g#","a#",
   ];
 
+  final List<String> keys = [
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C"
+
+  ];
+
   PianoPage(this.stream, this.updateStream);
 
-  @override
-  State<PianoPage> createState() => _PianoPageState();
-
-
-  }
-
-
-class _PianoPageState extends State<PianoPage> {
-
-  @override
+    @override
   Widget build(BuildContext context) {
     MediaQueryData _mediaQueryData = MediaQuery.of(context);
     double displayWidth = _mediaQueryData.size.width;
@@ -96,67 +98,28 @@ class _PianoPageState extends State<PianoPage> {
               ],
             )),
         body:
-        Stack(
-            children:[
         Container(
             width: displayWidth,
-            alignment: Alignment.center,
             child:
-
-            StaggeredGridView.countBuilder(
-              scrollDirection: Axis.horizontal,
-              crossAxisCount: 1,
-              mainAxisSpacing: 2.0,
-              crossAxisSpacing: 2.0,
-              itemCount:  56,
-              physics: ClampingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                WhiteKey temp = WhiteKey(widget.whiteKeyNames[index]);
-                widget.whiteKeys.add(temp);
-                return temp;
-              },
-              staggeredTileBuilder: (int index) =>
-              new StaggeredTile.count(4, 0.2),
-            ),
-        ),
-          Container(
-              height: displayHeight /2,
-              width: displayWidth,
-              alignment: Alignment.center,
-              child:
-            StaggeredGridView.countBuilder(
-              scrollDirection: Axis.horizontal,
-              crossAxisCount: 1,
-              mainAxisSpacing: 12.0,
-              crossAxisSpacing: 2.0,
-              itemCount:  56,
-              physics: ClampingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                  if(widget.blackKeyNames[index] != "x"){
-                  BlackKey temp = BlackKey(widget.blackKeyNames[index]);
-                  widget.blackKeys.add(temp);
-                  return temp;
-                }
-                // TODO: not nice
-                return Text("");
-              },
-              staggeredTileBuilder: (int index) =>
-              new StaggeredTile.count(4, 0.2),
-            ),
-          )]
-            ),
+            GridView.count(
+                physics: ScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                childAspectRatio: 6,
+                mainAxisSpacing: 1,
+                crossAxisCount: 1,
+                children:
+                List.generate(keys.length, (index) {
+                  if (keys[index].substring(1) == "#") {
+                    print("${keys[index].substring(1)}");
+                    return BlackKey((keys[index]), index);
+                  }
+                  else {
+                    return WhiteKey(keys[index], index);
+                  }
+                })))
+    );
 
 
-        );
-
-
-      // ]
-      // 64 Pads
-
-
-
-
-   // );
 
   }
 }

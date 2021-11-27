@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import 'keys_state.dart';
 import 'navigator.dart';
 
 
@@ -20,7 +22,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (context) => KeysState(),
+      child:
+      MaterialApp(
       title: 'MyMusicApp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -31,7 +36,7 @@ class MyApp extends StatelessWidget {
           )
       ),
       home: const AppNavigator(),
-    );
+    )) ;
   }
 }
 
