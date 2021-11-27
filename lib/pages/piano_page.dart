@@ -39,6 +39,10 @@ class PianoPage extends StatefulWidget {
     "x","C#","D#","x","f#","g#","a#",
   ];
 
+  final List<String> keys = [
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#","C"
+  ];
+
   PianoPage(this.stream, this.updateStream);
 
   @override
