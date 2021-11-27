@@ -40,7 +40,14 @@ class PianoPage extends StatelessWidget {
   ];
 
   final List<String> keys = [
-    "C","C#","D","D#","E","F","F#","G","G#","A","A#","C"
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C","C#","D","D#","E","F","F#","G","G#","A","A#",
+    "C"
+
   ];
 
   PianoPage(this.stream, this.updateStream);
@@ -95,9 +102,11 @@ class PianoPage extends StatelessWidget {
             width: displayWidth,
             child:
             GridView.count(
-                childAspectRatio: 0.3,
+                physics: ScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                childAspectRatio: 6,
                 mainAxisSpacing: 1,
-                crossAxisCount: 12,
+                crossAxisCount: 1,
                 children:
                 List.generate(keys.length, (index) {
                   if (keys[index].substring(1) == "#") {

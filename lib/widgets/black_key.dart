@@ -39,7 +39,7 @@ class _BlackKeyState extends State<BlackKey> {
                   Text(
                     widget.name,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   )
               )
