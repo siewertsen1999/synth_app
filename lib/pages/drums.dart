@@ -66,10 +66,10 @@ class _DrumsState extends State<Drums>{
   ];
 
     print("instrumentLength  =  ${instruments.length}");
-// TODO: Create Tracks does not fill List with Tracks
-    // returns FutureList
+    // TODO: Create Tracks does not fill List with Tracks
+
     sequence.createTracks(instruments).then((tracks) {
-      print("done");
+      print("inside create Tracks ");
       tracks.forEach((track) {
         trackVolumes[track.id] = 0.0;
       });
@@ -80,7 +80,7 @@ class _DrumsState extends State<Drums>{
       });
 
     });
-
+    print("after create Tracks");
   }
   fillSeqElements(){
     if(seqElements.isEmpty) {
