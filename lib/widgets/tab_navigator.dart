@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:music_app/pages/drums.dart';
 import 'dart:async';
 
 import 'package:music_app/pages/pad_page.dart';
@@ -51,14 +52,15 @@ class _TabNavigatorState extends State<TabNavigator> {
 
     Widget child = PadPage(streamControllerHome.stream, updateStream);
     if(widget.tabItem == "Page1") {
-      child = PadPage(streamControllerHome.stream, updateStream);
-    }
-    else if(widget.tabItem == "Page2") {
       child = PianoPage(streamControllerBrowser.stream, updateStream);
     }
-    /*else if (widget.tabItem == "Page3") {
-      child = FavoritePage(streamControllerFavorites.stream, updateStream);
-    } else if (widget.tabItem == "Page4"){
+    else if(widget.tabItem == "Page2") {
+      child = Drums(streamControllerHome.stream, updateStream);
+    }
+    else if (widget.tabItem == "Page3") {
+      child = PadPage(streamControllerHome.stream, updateStream);
+
+    } /*else if (widget.tabItem == "Page4"){
       child = ProfilePage(streamControllerProfile.stream, updateStream);
     }
 */
@@ -66,12 +68,12 @@ class _TabNavigatorState extends State<TabNavigator> {
 
     return
       Navigator(
-      key: widget.navigatorKey,
-      onGenerateRoute: (routeSettings) {
-        return MaterialPageRoute(
-            builder: (context) => child
-        );
-      },
-    );
+        key: widget.navigatorKey,
+        onGenerateRoute: (routeSettings) {
+          return MaterialPageRoute(
+              builder: (context) => child
+          );
+        },
+      );
   }
 }

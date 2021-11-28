@@ -17,7 +17,7 @@ class AppState extends State<AppNavigator> {
   final Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "Page1": GlobalKey<NavigatorState>(),
     "Page2": GlobalKey<NavigatorState>(),
-    //"Page3": GlobalKey<NavigatorState>(),
+    "Page3": GlobalKey<NavigatorState>(),
     //"Page4": GlobalKey<NavigatorState>(),
   };
   int _selectedIndex = 0;
@@ -37,68 +37,71 @@ class AppState extends State<AppNavigator> {
   @override
   Widget build(BuildContext context) {
     return
-        WillPopScope(
-        onWillPop: () async {
-          final isFirstRouteInCurrentTab =
-          !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
-          //  check if we deeper in the stack of the current page
-          if (isFirstRouteInCurrentTab) {
-            // check if we're not on first Page / LiveFeed -> If true return to Live Feed
-            if (_currentPage != "Page1") {
-              _selectTab("Page2", 1);
-              return false;
+      WillPopScope(
+          onWillPop: () async {
+            final isFirstRouteInCurrentTab =
+            !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
+            //  check if we deeper in the stack of the current page
+            if (isFirstRouteInCurrentTab) {
+              // check if we're not on first Page / LiveFeed -> If true return to Live Feed
+              if (_currentPage != "Page1") {
+                _selectTab("Page1", 0);
+                return false;
+              }
             }
-          }
-          // let system handle back button if we're on the first route
-          return isFirstRouteInCurrentTab;
-        },
-        child: Scaffold(
-          body: Stack(
-              children: <Widget>[
-                _buildOffstageNavigator("Page1"),
-                _buildOffstageNavigator("Page2"),
-                //_buildOffstageNavigator("Page3"),
-                //_buildOffstageNavigator("Page4"),
-              ]
-          ),
-          bottomNavigationBar: SizedBox(
-            height: 50,
-            child:
+            // let system handle back button if we're on the first route
+            return isFirstRouteInCurrentTab;
+          },
+          child: Scaffold(
+            body: Stack(
+                children: <Widget>[
+                  _buildOffstageNavigator("Page1"),
+                  _buildOffstageNavigator("Page2"),
+                  _buildOffstageNavigator("Page3"),
+                  //_buildOffstageNavigator("Page4"),
+                ]
+            ),
+            bottomNavigationBar: SizedBox(
+              height: 50,
+              child:
 
-            BottomNavigationBar(
-              selectedItemColor:Colors.orange,
-              unselectedItemColor: Colors.white,
-              backgroundColor: Colors.black12,
-              type: BottomNavigationBarType.fixed,
+              BottomNavigationBar(
+                selectedItemColor:Colors.black,
+                unselectedItemColor: Colors.white,
+                backgroundColor: Colors.blueGrey,
+                type: BottomNavigationBarType.fixed,
 
-              onTap: (int index) {
-                _selectTab(pageKeys[index], index);
-              },
-              currentIndex: _selectedIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon:  Padding(
-                    padding: EdgeInsets.only(bottom: 2.0),
-                    child: Icon(Icons.update, size: 18),
+                onTap: (int index) {
+                  _selectTab(pageKeys[index], index);
+                },
+                currentIndex: _selectedIndex,
+                items: const [
+
+                  BottomNavigationBarItem(
+                    icon: Padding(
+                      padding: EdgeInsets.only(bottom: 2.0),
+                      child: Icon(Icons.filter_list_alt , size: 18),
+                    ),
+                    label: 'Piano',
                   ),
-                  label: 'Pad',
-                ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 2.0),
-                    child: Icon(Icons.filter_list_alt , size: 18),
+                  BottomNavigationBarItem(
+                    icon: Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: Icon(Icons.bookmarks_outlined, size: 33),
+                    ),
+                    label: 'Drums',
                   ),
-                  label: 'Piano',
-                ),
-                // TODO: change heart Icon to bookmark_add_outlined ?
-                /*
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 5.0),
-                    child: Icon(Icons.bookmarks_outlined, size: 33),
+                  BottomNavigationBarItem(
+                    icon:  Padding(
+                      padding: EdgeInsets.only(bottom: 2.0),
+                      child: Icon(Icons.update, size: 18),
+                    ),
+                    label: 'Pad',
                   ),
-                  label: 'Merkzettel',
-                ),
+                  // TODO: change heart Icon to bookmark_add_outlined ?
+
+
+                  /*
                 BottomNavigationBarItem(
                   icon: Padding(
                     padding: EdgeInsets.only(bottom: 5.0),
@@ -107,12 +110,12 @@ class AppState extends State<AppNavigator> {
                 ),
 
                  */
-              ],
+                ],
 
+              ),
             ),
-          ),
-        )
-    );
+          )
+      );
   }
 
   Widget _buildOffstageNavigator(String tabItem) {
